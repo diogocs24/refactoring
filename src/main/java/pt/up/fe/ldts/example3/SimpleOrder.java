@@ -6,16 +6,18 @@ public class SimpleOrder {
 
     public SimpleOrder(double price) {
         this.price = price;
+        this.discount = new NoDiscount();
     }
 
     public void setDiscount(Discount discount) {
-        this.discount = discount;
+        if (discount == null) {
+            this.discount = new NoDiscount();
+        } else {
+            this.discount = discount;
+        }
     }
 
     public double getTotal() {
-        if (discount == null)
-            return price;
-        else
-            return discount.applyDiscount(price);
+        return discount.applyDiscount(price);
     }
 }
